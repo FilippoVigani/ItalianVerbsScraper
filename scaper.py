@@ -57,33 +57,37 @@ def scrapeVerb(url):
 		lastWords.update(splitVerbGendersAndQuantify(x.split()[-1]))
 	return lastWords
 
-#Scraping verbs list
-verbsSet = set()
-currentUrl = BROWSE_VERBS_URL
-while(currentUrl):
-	verbs, newUrl = scrapeInfinitiveVerbs(currentUrl)
-	verbsSet.update(verbs)
-	currentUrl = newUrl
+def main():
+	#Scraping verbs list
+	verbsSet = set()
+	currentUrl = BROWSE_VERBS_URL
+	while(currentUrl):
+		verbs, newUrl = scrapeInfinitiveVerbs(currentUrl)
+		verbsSet.update(verbs)
+		currentUrl = newUrl
 
-#Scraping Conjugations
-wordsList = set(verbsSet)
-bar = Bar('Scraping conjugations', max=len(verbsSet))
-while(verbsSet):
-	verb = verbsSet.pop()
-	currentUrl = QUERY_PREFIX + verb
-	wordsList.update(scrapeVerb(currentUrl))
+	#Scraping Conjugations
+	wordsList = set(verbsSet)
+	bar = Bar('Scraping conjugations', max=len(verbsSet))
+	while(verbsSet):
+		verb = verbsSet.pop()
+		currentUrl = QUERY_PREFIX + verb
+		wordsList.update(scrapeVerb(currentUrl))
 
-	bar.next()
-bar.finish()
+		bar.next()
+	bar.finish()
 
-#Save to file
-bar = Bar('Saving to file %s' % OUPUT_FILE_NAME, max=len(wordsList))
-output = open(OUPUT_FILE_NAME, 'w')
-for item in sorted(wordsList):
-	if not (item in BANNED_WORDS) and not ('(' in item):
-		output.write("%s\n" % item)
-	bar.next()
-output.close()
-bar.finish()
-print("Process completed.")
+	#Save to file
+	bar = Bar('Saving to file %s' % OUPUT_FILE_NAME, max=len(wordsList))
+	output = open(OUPUT_FILE_NAME, 'w')
+	for item in sorted(wordsList):
+		if not (item in BANNED_WORDS) and not ('(' in item):
+			output.write("%s\n" % item)
+		bar.next()
+	output.close()
+	bar.finish()
+	print("Process completed.")
+
+if __name__ == '__main__':
+	main()
 
