@@ -7,6 +7,6 @@ Please use moderately to avoid saturating the server's traffic. You can find a p
 ## Usage
 Requires `lxml`, `requests` and `progress` modules. Install them accordingly to your operating system, or using `pip install <module_name>`.
 
-Run using python3 (e.g. `python3 scraper.py`. Under Unix and Unix-like systems you can run the script by setting executing permissions `sudo chmod +x scraper.py` and running `./scraper.py` (uses shebang).
+Run using python3 (e.g. `python3 scraper.py`). Under Unix and Unix-like systems you can run the script by setting executing permissions `sudo chmod +x scraper.py` and running `./scraper.py` (uses shebang).
 
 The output file will be a .txt file in the same directory of the script containing the list of conjugated verbs (including infinitive verb).
